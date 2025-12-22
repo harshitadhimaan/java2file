@@ -2,179 +2,223 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tic_tac_toe</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>tic_tac_toe</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
 
-        }
+    body {
+      background-color: #660B05;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
 
-        body {
-            background-color: #660B05;
-            text-align: center;
-        }
+    h1 {
+      color: #fff;
+      text-transform: capitalize;
+      margin: 1rem 0;
+      font-size: 3rem;
+    }
 
-        h1 {
-            color: #fff;
-            text-transform: capitalize;
-        }
+    .msg_container {
+      height: 20vmin;
+      color: #fff;
+      font-size: 4vmin;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
 
-        .container {
-            height: 70vh;
-            align-items: center;
-            justify-content: center;
-            display: flex;
-        }
+    #msg {
+      margin-bottom: 0.5rem;
+    }
 
-        .game {
-            height: 60vmin;
-            width: 60vmin;
-            display: flex;
-            flex-wrap:wrap;
-            gap: 1.5vmin;
-            align-items: center;
-            justify-content: center;
-        }
+    #NewGame,
+    #reset {
+      background-color: black;
+      border-radius: 1rem;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin: 0.5rem;
+      transition: background-color 0.3s ease;
+    }
 
-        .box {
-            height: 18vmin;
-            width: 18vmin;
-            border-radius: 1rem;
-            border: none;
-            box-shadow: 0px 0px 3px #ECD5BC;
-            font-size: 2.3rem;
-            color: black;
-            background-color: bisque;
-        }
+    #NewGame:hover,
+    #reset:hover {
+      background-color: #333;
+    }
 
-        #reset {
-            background-color: black;
-            color: #fff;
-            padding: 1rem;
-            font-size: 1.3rem;
-            border-radius: 1rem;
-        }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto; /* removed fixed 70vh */
+      padding: 10px;
+    }
 
-        #msg {
-            color: #fff;
-            font-size: 5vmin;
-        }
+    .game {
+      width: 90vw;
+      max-width: 400px;
+      aspect-ratio: 1 / 1; /* Keep square */
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5vmin;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
 
-        #NewGame {
-            background-color: black;
-            border-radius: 1rem;
-            padding: 1rem;
-            font-size: 1rem;
-            color: #fff;
-            margin-top: 1rem;
-        }
+    .box {
+      flex: 1 1 30%; /* allow boxes to shrink */
+      aspect-ratio: 1 / 1; /* square */
+      min-width: 60px;
+      max-width: 120px;
+      border-radius: 1rem;
+      border: none;
+      box-shadow: 0 0 3px #ECD5BC;
+      font-size: 3rem;
+      color: black;
+      background-color: bisque;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
 
-        .msg_container {
-            height: 20vmin;
-        }
+    .box:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
 
-         .hide {
-            display: none;
-        } 
-    </style>
+    .hide {
+      display: none;
+    }
+
+    /* Responsive tweaks for very small devices */
+    @media (max-width: 350px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .box {
+        font-size: 2rem;
+        min-width: 50px;
+        max-width: 90px;
+      }
+      #msg {
+        font-size: 3vmin;
+      }
+      #NewGame,
+      #reset {
+        padding: 0.7rem 1.2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <main>
-        <div class="msg_container">
-            <p id="msg">winner</p>
-            <button id="NewGame">New Game</button>
+  <main>
+    <div class="msg_container hide">
+      <p id="msg">Winner</p>
+      <button id="NewGame">New Game</button>
+    </div>
 
-        </div>
-        <h1> tic tac toe</h1>
-        <div class="container">
-            <div class="game">
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-                <button class="box"></button>
-            </div>
-        </div>
-        <button id="reset">reset game</button>
-    </main>
-</body>
-<script>
+    <h1>tic tac toe</h1>
+    <div class="container">
+      <div class="game">
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+      </div>
+    </div>
+    <button id="reset">Reset Game</button>
+  </main>
+
+  <script>
     let boxes = document.querySelectorAll(".box");
     let reset = document.querySelector("#reset");
-    let newGame = document.querySelector("#NewGame")
-    let msg = document.querySelector("#msg")
-    let msg_container = document.querySelector(".msg_container")
+    let newGame = document.querySelector("#NewGame");
+    let msg = document.querySelector("#msg");
+    let msg_container = document.querySelector(".msg_container");
     let turno = true;
+
     const winPatterns = [
-        [0, 1, 2],
-        [0, 3, 6],
-        [0, 4, 8],
-        [1, 4, 7],
-        [2, 5, 8],
-        [2, 4, 6],
-        [3, 4, 5],
-        [6, 7, 8]
+      [0, 1, 2],
+      [0, 3, 6],
+      [0, 4, 8],
+      [1, 4, 7],
+      [2, 5, 8],
+      [2, 4, 6],
+      [3, 4, 5],
+      [6, 7, 8]
     ];
+
     boxes.forEach((box) => {
-        box.addEventListener("click", () => {
-            if (turno === true) {
-                box.innerText = "o"
-                turno = false
-            } else {
-                box.innerText = "X";
-                turno = true;
-            }
-            box.disabled = true;
-            checkwinner()
-        });
+      box.addEventListener("click", () => {
+        if (turno) {
+          box.innerText = "o";
+          turno = false;
+        } else {
+          box.innerText = "X";
+          turno = true;
+        }
+        box.disabled = true;
+        checkwinner();
+      });
     });
+
     const disableBoxes = () => {
-        for (let box of boxes) {
-            box.disabled = true;
-        }
-    }
+      boxes.forEach(box => box.disabled = true);
+    };
+
     const enableBoxes = () => {
-        for (let box of boxes) {
-            box.disabled = false;
-            box.innerHTML = "";
-        }
-    }
+      boxes.forEach(box => {
+        box.disabled = false;
+        box.innerText = "";
+      });
+    };
+
     const showwinner = (winner) => {
-        msg.innerText = `congratulations, winner is ${winner}`;
-        msg_container.classList.remove("hide");
-        disableBoxes();
-    }
+      msg.innerText = `Congratulations, winner is ${winner}`;
+      msg_container.classList.remove("hide");
+      disableBoxes();
+    };
+
     const checkwinner = () => {
-        for (let pattern of winPatterns) {
-            let val1 = boxes[pattern[0]].innerText;
-            let val2 = boxes[pattern[1]].innerText;
-            let val3 = boxes[pattern[2]].innerText;
-            if (val1 != "" && val2 != "" && val3 != "") {
-                if (val1 === val2 && val2 === val3) {
-                    showwinner(val1)
-                }
-            }
+      for (let pattern of winPatterns) {
+        let val1 = boxes[pattern[0]].innerText;
+        let val2 = boxes[pattern[1]].innerText;
+        let val3 = boxes[pattern[2]].innerText;
+        if (val1 !== "" && val1 === val2 && val2 === val3) {
+          showwinner(val1);
+          return; // stop checking after winner found
         }
+      }
     };
+
     const resetGame = () => {
-        turn0 = true;
-
-        enableBoxes();
-        msg_container.classList.add("hide");
-
+      turno = true;
+      enableBoxes();
+      msg_container.classList.add("hide");
     };
-    reset.addEventListener("click", resetGame)
-    newGame.addEventListener("click", resetGame)
 
-</script>
+    reset.addEventListener("click", resetGame);
+    newGame.addEventListener("click", resetGame);
+  </script>
+</body>
 
 </html>
